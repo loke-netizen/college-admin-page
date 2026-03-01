@@ -21,6 +21,15 @@
             background-attachment: fixed;
         }
 
+        body.error-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6),
+                    rgba(0, 0, 0, 0.6)),
+                url("../static/error.png") no-repeat center center;
+
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
         /* Admin Glass Card */
         .login-card {
             width: 100%;
@@ -48,6 +57,20 @@
             margin-bottom: 25px;
             opacity: 0.9;
         }
+
+        .error-line {
+            background: rgba(255, 0, 0, 0.411);
+            color: #e94646;
+            border-left: 4px solid #ff0000;
+            padding: 8px 10px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-weight: 500;
+            margin: 20px 30px;
+        }
+
+
 
         .input-box label {
             font-size: 14.4px !important;

@@ -12,26 +12,30 @@
 
 </head>
 
-<body>
-
+<body class="{% if error %}error-bg{% endif %}">
     <div class="admin-badge">ADMIN PANEL</div>
 
     <div class="login-card">
         <h2>Admin Login</h2>
+
         <p>Lokesh University Control System</p>
 
-        <form>
+        <form action="/homepage" method="POST">
             <div class="input-box">
                 <label>Admin Username</label>
-                <input type="text" placeholder="Enter admin username" required>
+                <input type="text" placeholder="Enter admin username" required name="username">
             </div>
 
             <div class="input-box">
                 <label>Password</label>
-                <input type="password" placeholder="Enter password" required>
+                <input type="password" placeholder="Enter password" required name="password">
             </div>
-
             <button class="login-btn">Login</button>
+            {% if error %}
+            <div class="error-line">
+                ❌ Invalid Username or Password
+            </div>
+            {% endif %}
         </form>
 
         <div class="footer">
