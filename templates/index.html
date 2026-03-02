@@ -4,20 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University Admin | Cyber Dashboard</title>
-
-    <!-- Font -->
+    <title>University Admin | Cyber Dashboard</title> <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-
-
 </head>
 
 <body>
-
     <aside>
         <div class="user-header">
             <div class="user-avatar"><i class="fas fa-user-shield"></i></div>
@@ -26,79 +20,120 @@
                 <p style="font-size:12px;color:#94a3b8;">University Central</p>
             </div>
         </div>
-
         <nav>
-            <a href="#" class="nav-link active"><i class="fas fa-th-large"></i> Dashboard</a>
-            <a href="#" class="nav-link"><i class="fas fa-user-graduate"></i> Students</a>
-            <a href="#" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Faculty</a>
-            <a href="#" class="nav-link"><i class="fas fa-book"></i> Courses</a>
-            <a href="#" class="nav-link"><i class="fas fa-layer-group"></i> Subjects</a>
-        </nav>
 
-        <a href="/" class="nav-link logout"><i class="fas fa-power-off"></i> Logout</a>
+            <a href="/homepage" class="nav-link {% if page == 'dashboard' %}active{% endif %}">
+                <i class="fas fa-th-large"></i> Dashboard
+            </a>
+
+            <a href="/homepage?page=student" class="nav-link {% if page == 'student' %}active{% endif %}">
+                <i class="fas fa-user-graduate"></i> Students
+            </a>
+
+            <a href="/homepage?page=staff" class="nav-link {% if page == 'staff' %}active{% endif %}">
+                <i class="fas fa-chalkboard-teacher"></i> Faculty
+            </a>
+
+            <a href="/homepage?page=department" class="nav-link {% if page == 'department' %}active{% endif %}">
+                <i class="fas fa-book"></i> Departments
+            </a>
+
+            <a href="/homepage?page=subject" class="nav-link {% if page == 'subject' %}active{% endif %}">
+                <i class="fas fa-layer-group"></i> Subjects
+            </a>
+
+        </nav><a href="/" class="nav-link logout"><i class="fas fa-power-off"></i> Logout</a>
     </aside>
-
     <main>
+        <div class="content">
 
-        <h1 style="margin-bottom:20px;">University Admin Dashboard</h1>
+            {% if page == "dashboard" %}
 
-        <div class="stats-bar">
-            <div class="stat-item">Total Students <span>3,200</span></div>
-            <div class="stat-item">Active Staff <span>220</span></div>
-            <div class="stat-item">Courses <span>85</span></div>
-            <div class="stat-item">Subjects <span>140</span></div>
+            <h1>University Admin Dashboard</h1>
+
+            <div class="stats-bar">
+                <div class="stat-item">Total Students <span>3,200</span></div>
+                <div class="stat-item">Active Staff <span>220</span></div>
+                <div class="stat-item">Departments <span>85</span></div>
+                <div class="stat-item">Subjects <span>140</span></div>
+            </div>
+
+            <div class="module-grid">
+
+                <!-- Student Card -->
+                <div class="card">
+                    <img src="{{ url_for('static', filename='studentpr.jpg') }}" class="card-bg">
+                    <div class="card-overlay">
+                        <h2>Student Management</h2>
+                        <a href="/homepage?page=student" class="btn-action">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Staff Card -->
+                <div class="card">
+                    <img src="{{ url_for('static', filename='staffs.png') }}" class="card-bg">
+                    <div class="card-overlay">
+                        <h2>Faculty</h2>
+                        <a href="/homepage?page=staff" class="btn-action">Manage Staff</a>
+                    </div>
+                </div>
+
+                <!-- Department Card -->
+                <div class="card">
+                    <img src="{{ url_for('static', filename='deptpr.png') }}" class="card-bg">
+                    <div class="card-overlay">
+                        <h2>Departments</h2>
+                        <a href="/homepage?page=department" class="btn-action">Browse</a>
+                    </div>
+                </div>
+
+                <!-- Subject Card -->
+                <div class="card">
+                    <img src="{{ url_for('static', filename='subjectpr.jpg') }}" class="card-bg">
+                    <div class="card-overlay">
+                        <h2>Subjects</h2>
+                        <a href="/homepage?page=subject" class="btn-action">View Subjects</a>
+                    </div>
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            {% if page == "department" %}
+            <h2>Departments</h2>
+            {% for dept in departments %}
+            <p>{{ dept.dept_id }} - {{ dept.dept_name }}</p>
+            {% endfor %}
+            {% endif %}
+
+
+            {% if page == "student" %}
+            <h2>Students</h2>
+            {% for s in students %}
+            <p>{{ s.student_id }} - {{ s.name }}</p>
+            {% endfor %}
+            {% endif %}
+
+
+            {% if page == "staff" %}
+            <h2>Faculty</h2>
+            {% for st in staffs %}
+            <p>{{ st.staff_id }} - {{ st.name }}</p>
+            {% endfor %}
+            {% endif %}
+
+
+            {% if page == "subject" %}
+            <h2>Subjects</h2>
+            {% for sub in subjects %}
+            <p>{{ sub.subject_id }} - {{ sub.name }}</p>
+            {% endfor %}
+            {% endif %}
+
         </div>
-
-        <div class="module-grid">
-
-            <!-- Student -->
-            <div class="card">
-                <img src="{{ url_for('static', filename='studentpr.jpg') }}" class="card-bg">
-                <div class="card-overlay">
-                    <h2>Student Management</h2>
-                    <div class="info-row">3,200 Enrolled Students</div>
-                    <div class="info-row">150 New Applications</div>
-                    <a href="#" class="btn-action">View Details</a>
-                </div>
-            </div>
-
-            <!-- Faculty -->
-            <div class="card">
-                <img src="{{ url_for('static', filename='staffs.png') }}" class="card-bg">
-                <div class="card-overlay">
-                    <h2>Faculty & Staff</h2>
-                    <div class="info-row">220 Active Staff</div>
-                    <div class="info-row">15 Open Positions</div>
-                    <a href="#" class="btn-action">Manage Staff</a>
-                </div>
-            </div>
-
-            <!-- Courses -->
-            <div class="card">
-                <img src="{{ url_for('static', filename='deptpr.png') }}" class="card-bg">
-                <div class="card-overlay">
-                    <h2>Courses & Programs</h2>
-                    <div class="info-row">85 Available Courses</div>
-                    <div class="info-row">12 Departments</div>
-                    <a href="#" class="btn-action">Browse Courses</a>
-                </div>
-            </div>
-
-            <!-- Subjects -->
-            <div class="card">
-                <img src="{{ url_for('static', filename='subjectpr.jpg') }}" class="card-bg">
-                <div class="card-overlay">
-                    <h2>Subjects</h2>
-                    <div class="info-row">140 Subjects Available</div>
-                    <div class="info-row">Multiple Departments</div>
-                    <a href="#" class="btn-action">View Subjects</a>
-                </div>
-            </div>
-
-        </div>
-
     </main>
-
 </body>
 
 </html>
