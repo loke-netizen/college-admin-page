@@ -77,6 +77,18 @@
             overflow-y: auto;
         }
 
+        .dashboard-title {
+            text-align: center;
+            font-size: 42px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+
+            color: #e2e8f0;
+            /* soft white */
+        }
+
         .stats-bar {
             display: flex;
             gap: 2rem;
@@ -85,6 +97,7 @@
             padding: 1rem 2rem;
             border-radius: 50px;
             margin-bottom: 2.5rem;
+            margin-top: 15px;
         }
 
         .stat-item span {
@@ -162,4 +175,72 @@
 
         .btn-action:hover {
             background: var(--neon-blue);
+        }
+
+        .crud-container {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .crud-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .crud-form input,
+        .crud-form select {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+        }
+
+        .crud-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .crud-table th,
+        .crud-table td {
+            padding: 12px;
+            border-bottom: 1px solid #334155;
+            text-align: left;
+        }
+
+        .crud-table tr:hover {
+            background: rgba(14, 165, 233, 0.1);
+        }
+
+        .inline-form {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-add {
+            background: #0ea5e9;
+        }
+
+        .btn-edit {
+            background: #a855f7;
+        }
+
+        .btn-delete {
+            background: #ef4444;
         }

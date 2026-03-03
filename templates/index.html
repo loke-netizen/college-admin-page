@@ -9,6 +9,7 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -49,8 +50,7 @@
 
             {% if page == "dashboard" %}
 
-            <h1>University Admin Dashboard</h1>
-
+            <h1 class="dashboard-title">University Admin Dashboard</h1>
             <div class="stats-bar">
                 <div class="stat-item">Total Students <span>3,200</span></div>
                 <div class="stat-item">Active Staff <span>220</span></div>
@@ -102,34 +102,238 @@
 
 
             {% if page == "department" %}
-            <h2>Departments</h2>
-            {% for dept in departments %}
-            <p>{{ dept.dept_id }} - {{ dept.dept_name }}</p>
-            {% endfor %}
+            <div class="crud-container">
+
+                <h2 class="section-title">Department Management</h2>
+
+                <form action="/department/add" method="POST" class="crud-form">
+                    <input type="text" name="dept_name" placeholder="Department Name" required>
+                    <button class="btn btn-add">Add</button>
+                </form>
+
+                <table class="crud-table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+
+                    {% for dept in departments %}
+                    <tr>
+                        <td>{{ dept.dept_id }}</td>
+                        <td>
+                            <form action="/department/edit/{{ dept.dept_id }}" method="POST" class="inline-form">
+                                <input type="text" name="dept_name" value="{{ dept.dept_name }}" required>
+                                <button class="btn btn-edit">Update</button>
+                            </form>
+                        </td>
+                        <td>
+                            <a href="/department/delete/{{ dept.dept_id }}" class="btn btn-delete"
+                                onclick="return confirm('Delete this department?')">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
             {% endif %}
 
 
             {% if page == "student" %}
-            <h2>Students</h2>
-            {% for s in students %}
-            <p>{{ s.student_id }} - {{ s.name }}</p>
-            {% endfor %}
-            {% endif %}
+            <div class="crud-container">
 
+                <h2 class="section-title">Student Management</h2>
+
+                <form action="/student/add" method="POST" class="crud-form">
+                    <input type="text" name="name" placeholder="Student Name" required>
+
+                    <select name="dept_id" required>
+                        <option value="">Select Department</option>
+                        {% for dept in departments %}
+                        <option value="{{ dept.dept_id }}">{{ dept.dept_name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-add">Add</button>
+                </form>
+
+                <table class="crud-table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Actions</th>
+                    </tr>
+
+                    {% for s in students %}
+                    <tr>
+                        <td>{{ s.student_id }}</td>
+                        <td>
+                            <form action="/student/edit/{{ s.student_id }}" method="POST" class="inline-form">
+                                <input type="text" name="name" value="{{ s.name }}" required>
+
+                                <select name="dept_id">
+                                    {% for dept in departments %}
+                                    <option value="{{ dept.dept_id }}" {% if dept.dept_id==s.dept_id %}selected{% endif
+                                        %}>
+                                        {{ dept.dept_name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+
+                                <button class="btn btn-edit">Update</button>
+                            </form>
+                        </td>
+                        <td>{{ s.department.dept_name }}</td>
+                        <td>
+                            <a href="/student/delete/{{ s.student_id }}" class="btn btn-delete"
+                                onclick="return confirm('Delete this student?')">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+            {% endif %}
 
             {% if page == "staff" %}
-            <h2>Faculty</h2>
-            {% for st in staffs %}
-            <p>{{ st.staff_id }} - {{ st.name }}</p>
-            {% endfor %}
+            <div class="crud-container">
+
+                <h2 class="section-title">Faculty Management</h2>
+
+                <form action="/staff/add" method="POST" class="crud-form">
+                    <input type="text" name="name" placeholder="Staff Name" required>
+
+                    <select name="dept_id" required>
+                        <option value="">Select Department</option>
+                        {% for dept in departments %}
+                        <option value="{{ dept.dept_id }}">{{ dept.dept_name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-add">Add</button>
+                </form>
+
+                <table class="crud-table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Actions</th>
+                    </tr>
+
+                    {% for st in staffs %}
+                    <tr>
+                        <td>{{ st.staff_id }}</td>
+                        <td>
+                            <form action="/staff/edit/{{ st.staff_id }}" method="POST" class="inline-form">
+                                <input type="text" name="name" value="{{ st.name }}" required>
+
+                                <select name="dept_id">
+                                    {% for dept in departments %}
+                                    <option value="{{ dept.dept_id }}" {% if dept.dept_id==st.dept_id %}selected{% endif
+                                        %}>
+                                        {{ dept.dept_name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+
+                                <button class="btn btn-edit">Update</button>
+                            </form>
+                        </td>
+                        <td>{{ st.department.dept_name }}</td>
+                        <td>
+                            <a href="/staff/delete/{{ st.staff_id }}" class="btn btn-delete"
+                                onclick="return confirm('Delete this staff?')">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
             {% endif %}
 
-
             {% if page == "subject" %}
-            <h2>Subjects</h2>
-            {% for sub in subjects %}
-            <p>{{ sub.subject_id }} - {{ sub.name }}</p>
-            {% endfor %}
+            <div class="crud-container">
+
+                <h2 class="section-title">Subject Management</h2>
+
+                <form action="/subject/add" method="POST" class="crud-form">
+                    <input type="text" name="name" placeholder="Subject Name" required>
+
+                    <select name="dept_id" required>
+                        <option value="">Select Department</option>
+                        {% for dept in departments %}
+                        <option value="{{ dept.dept_id }}">{{ dept.dept_name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <select name="staff_id" required>
+                        <option value="">Select Staff</option>
+                        {% for st in staffs %}
+                        <option value="{{ st.staff_id }}">{{ st.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-add">Add</button>
+                </form>
+
+                <table class="crud-table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Staff</th>
+                        <th>Actions</th>
+                    </tr>
+
+                    {% for sub in subjects %}
+                    <tr>
+                        <td>{{ sub.subject_id }}</td>
+                        <td>
+                            <form action="/subject/edit/{{ sub.subject_id }}" method="POST" class="inline-form">
+                                <input type="text" name="name" value="{{ sub.name }}" required>
+
+                                <select name="dept_id">
+                                    {% for dept in departments %}
+                                    <option value="{{ dept.dept_id }}" {% if dept.dept_id==sub.dept_id %}selected{%
+                                        endif %}>
+                                        {{ dept.dept_name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+
+                                <select name="staff_id">
+                                    {% for st in staffs %}
+                                    <option value="{{ st.staff_id }}" {% if st.staff_id==sub.staff_id %}selected{% endif
+                                        %}>
+                                        {{ st.name }}
+                                    </option>
+                                    {% endfor %}
+                                </select>
+
+                                <button class="btn btn-edit">Update</button>
+                            </form>
+                        </td>
+                        <td>{{ sub.department.dept_name }}</td>
+                        <td>{{ sub.staff_id }}</td>
+                        <td>
+                            <a href="/subject/delete/{{ sub.subject_id }}" class="btn btn-delete"
+                                onclick="return confirm('Delete this subject?')">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
             {% endif %}
 
         </div>

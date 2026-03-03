@@ -20,15 +20,16 @@
 
         <p>Lokesh University Control System</p>
 
-        <form action="/homepage" method="POST">
+        <form action="/homepage" method="POST" autocomplete="off">
             <div class="input-box">
                 <label>Admin Username</label>
-                <input type="text" placeholder="Enter admin username" required name="username">
+                <input type="text" placeholder="Enter admin username" required name="username" autocomplete="off">
             </div>
 
             <div class="input-box">
                 <label>Password</label>
-                <input type="password" placeholder="Enter password" required name="password">
+                <input type="password" placeholder="Enter password" required name="password"
+                    autocomplete="new-password">
             </div>
             <button class="login-btn">Login</button>
             {% if error %}
