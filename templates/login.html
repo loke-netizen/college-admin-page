@@ -20,7 +20,7 @@
 
         <p>Lokesh University Control System</p>
 
-        <form action="/homepage" method="POST" autocomplete="off">
+        <form action="/login" method="POST" autocomplete="off">
             <div class="input-box">
                 <label>Admin Username</label>
                 <input type="text" placeholder="Enter admin username" required name="username" autocomplete="off">
@@ -34,7 +34,8 @@
             <button class="login-btn">Login</button>
             {% if error %}
             <div class="error-line">
-                ❌ Invalid Username or Password
+                <span>⚠</span>
+                <span>Invalid Username or Password</span>
             </div>
             {% endif %}
         </form>
