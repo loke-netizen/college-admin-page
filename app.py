@@ -80,15 +80,20 @@ def homepage():
     if not session.get("admin"):
         return redirect("/")
 
-    page = request.args.get("page")
+    # default page
+    page = request.args.get("page", "dashboard")
 
-    if not page:
-        page = "dashboard"
-
+    # fetch all data
     departments = Department.query.all()
     students = Student.query.all()
     staffs = Staff.query.all()
     subjects = Subject.query.all()
+
+    # dashboard counts
+    student_count = Student.query.count()
+    staff_count = Staff.query.count()
+    dept_count = Department.query.count()
+    subject_count = Subject.query.count()
 
     return render_template(
         "index.html",
@@ -96,7 +101,11 @@ def homepage():
         departments=departments,
         students=students,
         staffs=staffs,
-        subjects=subjects
+        subjects=subjects,
+        student_count=student_count,
+        staff_count=staff_count,
+        dept_count=dept_count,
+        subject_count=subject_count
     )
 
 # ================= DEPARTMENT CRUD =================
