@@ -174,3 +174,33 @@
             font-size: 13px;
             letter-spacing: 1px;
         }
+
+        .login-ticker {
+            position: fixed;
+            bottom: 0;
+            width: 180%;
+            background: rgba(30, 20, 10, 0.85);
+            color: #f5d7a1;
+            font-size: 13px;
+            overflow: hidden;
+            height: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .ticker-text {
+            white-space: nowrap;
+            position: absolute;
+            right: -300px;
+            animation: tickerMove 18s linear infinite;
+        }
+
+        @keyframes tickerMove {
+            from {
+                right: 0px;
+            }
+
+            to {
+                right: 100%;
+            }
+        }
