@@ -11,8 +11,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# ================= MODELS =================
-
 class Department(db.Model):
     dept_id = db.Column(db.Integer, primary_key=True)
     dept_name = db.Column(db.String(100), nullable=False)
