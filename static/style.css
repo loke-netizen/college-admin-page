@@ -11,7 +11,7 @@
             justify-content: center;
             align-items: flex-start;
             /* move content down */
-            padding-top: 120px;
+            padding-top: 10%;
             /* adjust height here */
 
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
