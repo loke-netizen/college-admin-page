@@ -13,6 +13,7 @@
             /* move content down */
             padding-top: 10%;
             /* adjust height here */
+            overflow: hidden;
 
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
                 url("collegeimg.png") no-repeat center center;
