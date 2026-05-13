@@ -11,7 +11,8 @@
             justify-content: center;
             align-items: flex-start;
             /* move content down */
-            padding-top: 10%;
+            padding-top: clamp(8vh, 15vh, 17vh);
+
             /* adjust height here */
             overflow: hidden;
 
@@ -34,7 +35,7 @@
         /* Admin Glass Card */
         .login-card {
             width: 100%;
-            max-width: 420px;
+            max-width: 410px;
             padding: 45px 35px;
             border-radius: 20px;
 
@@ -203,5 +204,10 @@
 
             to {
                 right: 100%;
+            }
+        }
+       @media (max-width: 725px) {
+            .admin-badge {
+                display: none;
             }
         }
